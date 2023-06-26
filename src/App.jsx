@@ -3,6 +3,7 @@ import NavBar from "./Components/NavBar/NavBar";
 import Search from "./Components/SearchDiv/Search";
 import Jobs from "./Components/JobDiv/Jobs";
 import Value from "./Components/ValueDiv/Value";
+import Footer from "./Components/FooterDiv/Footer";
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
       <Search />
       <Jobs />
       <Value />
+      <Footer />
     </div>
   );
 };

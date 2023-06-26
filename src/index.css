@@ -33,6 +33,6 @@ li:hover::before {
   cursor: pointer;
 }
 
-/* .card { */
-/*   background: #000; */
-/* } */
+.card {
+  background: url("../src/Assets/black-white-image-water-surface-with-pattern-triangles.jpg");
+}
