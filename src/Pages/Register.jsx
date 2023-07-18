@@ -96,10 +96,9 @@ const Register = () => {
         navigate("/login");
       })
       .catch((err) => {
-        console.log(err);
         setErrors((prevErrors) => ({
           ...prevErrors,
-          registration: "Registration failed",
+          registration: `${err.response.data.body.detail}`,
         }));
       });
   };

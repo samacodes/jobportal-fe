@@ -30,14 +30,12 @@ const Login = () => {
     api
       .post("/auth/login", formValue)
       .then((res) => {
-        console.log(res.data);
         const jwt = res.data.jwt;
         localStorage.setItem("token", jwt);
         navigate("/");
       })
       .catch((err) => {
-        console.log(err);
-        setError("Invalid username or password");
+        setError(err.response.data.body.detail);
       });
   };
 
