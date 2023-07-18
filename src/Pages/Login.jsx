@@ -1,10 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../App.css";
+import AuthContext from "../Context/AuthProvider";
 import api from "../Helpers/AxiosHelper";
 
 const Login = () => {
+  const { setAuth } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -32,6 +34,8 @@ const Login = () => {
       .then((res) => {
         const jwt = res.data.jwt;
         localStorage.setItem("token", jwt);
+        const user = res.data.user;
+        setAuth({ user, jwt });
         navigate("/");
       })
       .catch((err) => {
