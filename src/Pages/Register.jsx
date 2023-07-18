@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../App.css";
 import api from "../Helpers/AxiosHelper";
@@ -11,33 +11,33 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordValid, setIsPasswordValid] = useState(true);
-  const [error, setError] = useState("");
-  const [formValue, setFormValue] = useState({});
+  const [errors, setErrors] = useState({});
+
   const navigate = useNavigate();
 
   const handleRoleChange = (e) => {
     setRole(e.target.value);
-    setError("");
+    setErrors((prevErrors) => ({ ...prevErrors, role: "" }));
   };
 
   const handleFirstNameChange = (e) => {
     setFirstName(e.target.value);
-    setError("");
+    setErrors((prevErrors) => ({ ...prevErrors, firstName: "" }));
   };
 
   const handleLastNameChange = (e) => {
     setLastName(e.target.value);
-    setError("");
+    setErrors((prevErrors) => ({ ...prevErrors, lastName: "" }));
   };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
-    setError("");
+    setErrors((prevErrors) => ({ ...prevErrors, email: "" }));
   };
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
-    setError("");
+    setErrors((prevErrors) => ({ ...prevErrors, username: "" }));
   };
 
   const handlePasswordChange = (e) => {
@@ -48,11 +48,37 @@ const Register = () => {
     const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
     setIsPasswordValid(passwordRegex.test(value));
-    setError("");
+    setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Field validation
+    const validationErrors = {};
+    if (!role) {
+      validationErrors.role = "Please select a role";
+    }
+    if (!firstName) {
+      validationErrors.firstName = "Please enter your first name";
+    }
+    if (!lastName) {
+      validationErrors.lastName = "Please enter your last name";
+    }
+    if (!email) {
+      validationErrors.email = "Please enter your email";
+    }
+    if (!username) {
+      validationErrors.username = "Please enter a username";
+    }
+    if (!password) {
+      validationErrors.password = "Please enter a password";
+    }
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
     const newUser = {
       role: role,
@@ -71,21 +97,11 @@ const Register = () => {
       })
       .catch((err) => {
         console.log(err);
-        setError("Registration failed");
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          registration: "Registration failed",
+        }));
       });
-  };
-
-  const isRegisterDisabled = () => {
-    return (
-      !role ||
-      !firstName ||
-      !lastName ||
-      !email ||
-      !username ||
-      !password ||
-      !isPasswordValid ||
-      !!error
-    );
   };
 
   return (
@@ -108,8 +124,8 @@ const Register = () => {
             <input
               type="radio"
               id="hiring"
-              value="hiring"
-              checked={role === "hiring"}
+              value="GIVER"
+              checked={role === "GIVER"}
               onChange={handleRoleChange}
             />
             <label htmlFor="hiring" className="ml-2">
@@ -120,14 +136,17 @@ const Register = () => {
             <input
               type="radio"
               id="looking"
-              value="looking"
-              checked={role === "looking"}
+              value="SEEKER"
+              checked={role === "SEEKER"}
               onChange={handleRoleChange}
             />
             <label htmlFor="looking" className="ml-2">
               Looking for a job
             </label>
           </div>
+          {errors.role && (
+            <p className="text-red-500 text-xs mt-1">{errors.role}</p>
+          )}
         </div>
         {/* First name input field */}
         <div className="mb-4">
@@ -145,6 +164,9 @@ const Register = () => {
             value={firstName}
             onChange={handleFirstNameChange}
           />
+          {errors.firstName && (
+            <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>
+          )}
         </div>
         {/* Last name input field */}
         <div className="mb-4">
@@ -162,6 +184,9 @@ const Register = () => {
             value={lastName}
             onChange={handleLastNameChange}
           />
+          {errors.lastName && (
+            <p className="text-red-500 text-xs mt-1">{errors.lastName}</p>
+          )}
         </div>
         {/* Email input field */}
         <div className="mb-4">
@@ -179,6 +204,9 @@ const Register = () => {
             value={email}
             onChange={handleEmailChange}
           />
+          {errors.email && (
+            <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+          )}
         </div>
         {/* Username input field */}
         <div className="mb-4">
@@ -196,6 +224,9 @@ const Register = () => {
             value={username}
             onChange={handleUsernameChange}
           />
+          {errors.username && (
+            <p className="text-red-500 text-xs mt-1">{errors.username}</p>
+          )}
         </div>
         {/* Password input field */}
         <div className="mb-4">
@@ -218,18 +249,23 @@ const Register = () => {
           {!isPasswordValid && (
             <p className="text-red-500 text-xs mt-1">
               Password must be at least 8 characters long and include at least
-              one uppercase letter, one lowercase letter, and one digit.
+              one uppercase letter, one lowercase letter, one digit, and one
+              special character.
             </p>
+          )}
+          {errors.password && (
+            <p className="text-red-500 text-xs mt-1">{errors.password}</p>
           )}
         </div>
         {/* Error message */}
-        {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
+        {errors.registration && (
+          <p className="text-red-500 text-sm mb-3">{errors.registration}</p>
+        )}
         {/* Submit button */}
         <div className="flex flex-col items-center justify-center">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-2 w-full"
             type="submit"
-            disabled={isRegisterDisabled()}
           >
             Register
           </button>
