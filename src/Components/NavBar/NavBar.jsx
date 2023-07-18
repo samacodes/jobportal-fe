@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const LoginButt = () => {
   return (
@@ -30,7 +31,9 @@ const NavBar = () => {
     <div className="navBar flex justify-between items-center p-[3rem]">
       <div className="logoDiv">
         <h1 className="logo text-[25px] text-blueColor">
-          <strong>Job</strong>Portal{" "}
+          <Link to="/">
+            <strong>Job</strong>Portal{" "}
+          </Link>
         </h1>
       </div>
 

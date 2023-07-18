@@ -38,7 +38,9 @@ const ForgotPassword = () => {
     <div className="flex flex-col items-center justify-center h-screen">
       <div className="logoDiv mb-8">
         <h1 className="logo text-3xl text-blue-500">
-          <strong>Job</strong>Portal
+          <Link to="/">
+            <strong>Job</strong>Portal
+          </Link>
         </h1>
       </div>
       <form
