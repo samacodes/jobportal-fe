@@ -3,8 +3,8 @@ import { BsFacebook } from "react-icons/bs";
 
 const Footer = () => {
   return (
-    <div className="footer bg-blueColor rounded-[10px] py-8 px-4 md:px-8 lg:px-12 xl:px-16 flex flex-row items-center justify-between">
-      <div className="flex flex-col items-center md:items-start mb-6">
+    <div className="footer bg-blueColor rounded-[3px] py-8 px-4 md:px-8 lg:px-12 xl:px-16 flex flex-row items-center justify-between">
+      <div className="flex flex-col items-start md:items-start mb-6">
         <div className="logoDiv mb-2">
           <h1 className="logo text-2xl text-white">
             <strong>Job</strong>Portal
@@ -19,7 +19,7 @@ const Footer = () => {
       </div>
 
       <div className="col-span-2 flex justify-center md:justify-end items-center">
-        <span className="divTitle text-xl font-semibold text-white">
+        <span className="divTitle text-xl font-semibold text-white opacity-90">
           Made with{" "}
           <svg
             style={{
@@ -51,7 +51,7 @@ const Footer = () => {
             <small className="text-white text-sm">
               <a
                 href="mailto:sama.acharya@smc.edu.np"
-                className="text-white hover:text-blueColor"
+                className="text-white opacity-90 hover:opacity-70"
               >
                 sama.acharya@smc.edu.np
               </a>
@@ -62,21 +62,21 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <AiFillInstagram className="bg-white p-2 h-10 w-10 rounded-full icon text-blueColor" />
+                <AiFillInstagram className="bg-white hover:bg-opacity-70 p-2 h-10 w-10 rounded-full icon text-blueColor" />
               </a>
               <a
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <BsFacebook className="bg-white p-2 h-10 w-10 rounded-full icon text-blueColor" />
+                <BsFacebook className="bg-white hover:bg-opacity-70 p-2 h-10 w-10 rounded-full icon text-blueColor" />
               </a>
               <a
                 href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <AiOutlineTwitter className="bg-white p-2 h-10 w-10 rounded-full icon text-blueColor" />
+                <AiOutlineTwitter className="bg-white hover:bg-opacity-70 p-2 h-10 w-10 rounded-full icon text-blueColor" />
               </a>
             </div>
           </div>
