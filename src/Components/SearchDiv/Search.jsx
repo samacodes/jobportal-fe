@@ -29,7 +29,7 @@ const Search = () => {
   };
 
   return (
-    <div className="searchDiv p-[3rem] flex justify-center">
+    <div className="searchDiv px-[3rem] pt-[5rem] flex justify-center">
       <form
         onSubmit={handleSearch}
         className="flex flex-wrap gap-4 justify-center"
@@ -83,7 +83,7 @@ const Search = () => {
         </div>
 
         {/* Search Button */}
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-2 w-[400px]">
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-[100px]">
           Search
         </button>
       </form>

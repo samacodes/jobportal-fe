@@ -54,19 +54,22 @@ const LogoutButt = () => {
 
 const NavBar = () => {
   return (
-    <div className="navBar flex justify-between items-center p-[3rem]">
-      <div className="logoDiv">
-        <h1 className="logo text-[25px] text-blueColor">
-          <Link to="/">
-            <strong>Job</strong>Portal{" "}
-          </Link>
-        </h1>
-      </div>
+    <>
+      <div className="navBar flex justify-between items-center px-[3rem] pt-[2rem] pb-[1rem]">
+        <div className="logoDiv">
+          <h1 className="logo text-[25px] text-blueColor">
+            <Link to="/">
+              <strong>Job</strong>Portal{" "}
+            </Link>
+          </h1>
+        </div>
 
-      <div className="menu text-[18px] flex gap-8">
-        {localStorage.getItem("token") ? <LogoutButt /> : <LoginButt />}
+        <div className="menu text-[18px] flex gap-8">
+          {localStorage.getItem("token") ? <LogoutButt /> : <LoginButt />}
+        </div>
       </div>
-    </div>
+      <hr className="border-[#e0e0e0]" />
+    </>
   );
 };
 
