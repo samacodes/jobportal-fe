@@ -83,6 +83,7 @@ const jobs = [
 const Dashboard = () => {
   const [jobData, setJobData] = React.useState([]);
   const [searchParams, setSearchParams] = React.useState({});
+  const [searchPressed, setSearchPressed] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
   useEffect(() => {
@@ -107,9 +108,9 @@ const Dashboard = () => {
   return (
     <div className="w-full m-auto bg-white">
       <NavBar />
-      <Search setSearchParams={setSearchParams} />
-      <Jobs jobs={jobData} />
-      {jobData.length ? null : <Value />}
+      <Search setSearchParams={setSearchParams} setSearchPressed={setSearchPressed} searchPressed={searchPressed} />
+      <Jobs jobs={jobData} searched={searchPressed} />
+      {searchPressed && jobData.length ? null : <Value />}
       <Footer />
     </div>
   );
