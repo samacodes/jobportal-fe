@@ -1,32 +1,22 @@
-import React, { useState } from "react";
+import { PropTypes } from 'prop-types';
+import React from "react";
 import { AiOutlineCloseCircle, AiOutlineSearch } from "react-icons/ai";
 import { BsHouseDoor } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
 
-const Search = () => {
-  const [jobQuery, setJobQuery] = useState("");
-  const [locationQuery, setLocationQuery] = useState("");
-  const [showSorting, setShowSorting] = useState(false);
-  const [jobFocus, setJobFocus] = useState(false);
-  const [locationFocus, setLocationFocus] = useState(false);
-  const navigate = useNavigate();
+const Search = (params) => {
+  const { setSearchParams } = params;
+  const [jobQuery, setJobQuery] = React.useState("");
+  const [locationQuery, setLocationQuery] = React.useState("");
 
   const handleSearch = (event) => {
     event.preventDefault();
-    setShowSorting(true);
-    // Redirect to the search page with filters using useNavigate
-    navigate(
-      `/search?job=${encodeURIComponent(
-        jobQuery
-      )}&location=${encodeURIComponent(locationQuery)}`
-    );
+    const searchParams = {};
+    if (jobQuery) searchParams.job = jobQuery;
+    if (locationQuery) searchParams.location = locationQuery;
+
+    setSearchParams(searchParams);
   };
 
-  const handleClearAll = () => {
-    setJobQuery("");
-    setLocationQuery("");
-    setShowSorting(false);
-  };
 
   return (
     <div className="searchDiv px-[3rem] pt-[5rem] flex justify-center">
@@ -36,11 +26,7 @@ const Search = () => {
       >
         {/* Search by Job */}
         <div
-          className={`flex items-center gap-2 border rounded-lg p-2 border-[#555555] text-black text-lg w-[400px] ${
-            jobFocus ? "focused" : ""
-          }`}
-          onFocus={() => setJobFocus(true)}
-          onBlur={() => setJobFocus(false)}
+          className={`flex items-center gap-2 border rounded-lg p-2 border-[#555555] text-black text-lg w-[400px]`}
         >
           <AiOutlineSearch className="text-[20px] text-blue-500" />
           <input
@@ -53,18 +39,17 @@ const Search = () => {
           {jobQuery && (
             <AiOutlineCloseCircle
               className="text-[20px] text-[#a5a6a6] hover:text-textColor cursor-pointer"
-              onClick={() => setJobQuery("")}
+              onClick={() => {
+                setJobQuery("");
+                if(!locationQuery) setSearchParams({})
+              }}
             />
           )}
         </div>
 
         {/* Search by Location */}
         <div
-          className={`flex items-center gap-2 border rounded-lg p-2 border-[#555555] text-black text-lg w-[400px] ${
-            locationFocus ? "focused" : ""
-          }`}
-          onFocus={() => setLocationFocus(true)}
-          onBlur={() => setLocationFocus(false)}
+          className={`flex items-center gap-2 border rounded-lg p-2 border-[#555555] text-black text-lg w-[400px]`}
         >
           <BsHouseDoor className="text-[20px] text-blue-500" />
           <input
@@ -77,7 +62,10 @@ const Search = () => {
           {locationQuery && (
             <AiOutlineCloseCircle
               className="text-[20px] text-[#a5a6a6] hover:text-textColor cursor-pointer"
-              onClick={() => setLocationQuery("")}
+              onClick={() => {
+                setLocationQuery("");
+                if(!jobQuery) setSearchParams({})
+              }}
             />
           )}
         </div>
@@ -87,56 +75,11 @@ const Search = () => {
           Search
         </button>
       </form>
-
-      {showSorting && (
-        <>
-          {/* Clear All */}
-          <span
-            className="mt-4 text-[#a1a1a1] cursor-pointer text-sm"
-            onClick={handleClearAll}
-          >
-            Clear All
-          </span>
-
-          {/* Sorting Options */}
-          <div className="mt-4 flex flex-wrap items-center gap-4">
-            <div className="flex items-center gap-2 text-sm">
-              <label
-                htmlFor="sortType"
-                className="text-[#808080] font-semibold"
-              >
-                Sort by:
-              </label>
-              <select
-                id="sortType"
-                className="bg-white rounded-[3px] px-3 py-1 text-sm"
-              >
-                <option value="">Relevance</option>
-                <option value="">Date Posted</option>
-                <option value="">Salary</option>
-              </select>
-            </div>
-
-            <div className="flex items-center gap-2 text-sm">
-              <label
-                htmlFor="sortOrder"
-                className="text-[#808080] font-semibold"
-              >
-                Order:
-              </label>
-              <select
-                id="sortOrder"
-                className="bg-white rounded-[3px] px-3 py-1 text-sm"
-              >
-                <option value="asc">Ascending</option>
-                <option value="desc">Descending</option>
-              </select>
-            </div>
-          </div>
-        </>
-      )}
     </div>
   );
 };
+Search.propTypes = {
+  setSearchParams: PropTypes.func,
+}
 
 export default Search;
