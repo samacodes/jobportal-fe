@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 
 import Search from "../Components/SearchDiv/Search";
@@ -7,9 +7,8 @@ import Value from "../Components/ValueDiv/Value";
 import NavBar from "../Components/NavBar/NavBar";
 import Footer from "../Components/Footer";
 
-
 // Logos
-import logo1 from "../Assets/BushaWallet.png"
+import logo1 from "../Assets/BushaWallet.png";
 import logo2 from "../Assets/Fincra.png";
 import logo3 from "../Assets/ScaleFocus.png";
 import logo4 from "../Assets/TezosCoin.png";
@@ -93,24 +92,24 @@ const Dashboard = () => {
       setLoading(true);
 
       try {
-        const response = await axios.get('http://localhost:8000/jobs', { params: searchParams });
+        const response = await axios.get("http://localhost:8000/jobs", {
+          params: searchParams,
+        });
         setJobData(response.data);
       } catch (error) {
         console.log(error);
       }
       setLoading(false);
-    }
+    };
     fetchJobData();
-  }, [searchParams])
+  }, [searchParams]);
 
   return (
     <div className="w-full m-auto bg-white">
       <NavBar />
       <Search setSearchParams={setSearchParams} />
       <Jobs jobs={jobData} />
-      {
-        jobData.length ? null : <Value />
-      }
+      {jobData.length ? null : <Value />}
       <Footer />
     </div>
   );

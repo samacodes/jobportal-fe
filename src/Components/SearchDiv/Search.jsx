@@ -1,4 +1,4 @@
-import { PropTypes } from 'prop-types';
+import { PropTypes } from "prop-types";
 import React from "react";
 import { AiOutlineCloseCircle, AiOutlineSearch } from "react-icons/ai";
 import { BsHouseDoor } from "react-icons/bs";
@@ -16,7 +16,6 @@ const Search = (params) => {
 
     setSearchParams(searchParams);
   };
-
 
   return (
     <div className="searchDiv px-[3rem] pt-[5rem] flex justify-center">
@@ -41,7 +40,7 @@ const Search = (params) => {
               className="text-[20px] text-[#a5a6a6] hover:text-textColor cursor-pointer"
               onClick={() => {
                 setJobQuery("");
-                if(!locationQuery) setSearchParams({})
+                if (!locationQuery) setSearchParams({});
               }}
             />
           )}
@@ -64,7 +63,7 @@ const Search = (params) => {
               className="text-[20px] text-[#a5a6a6] hover:text-textColor cursor-pointer"
               onClick={() => {
                 setLocationQuery("");
-                if(!jobQuery) setSearchParams({})
+                if (!jobQuery) setSearchParams({});
               }}
             />
           )}
@@ -80,6 +79,6 @@ const Search = (params) => {
 };
 Search.propTypes = {
   setSearchParams: PropTypes.func,
-}
+};
 
 export default Search;
