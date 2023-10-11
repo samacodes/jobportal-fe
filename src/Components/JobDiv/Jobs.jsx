@@ -15,13 +15,13 @@ const Jobs = (props) => {
         })
       ) : (
     <div className="flex flex-col items-center text-center">
-      <BsSearch size={48} color="greyIsh" />
-      <p className="greyIsh text-xl ml-2">No jobs found! Please adjust your search parameters.</p>
+      <BsSearch size={48} color="bg-gray-100" />
+      <p className="text-[#6f6f6f] text-xl ml-2">No jobs found! Please adjust your search parameters.</p>
     </div>
       )): (
       <div className="flex items-center justify-center text-center">
-            <BsSearch size={48} color="greyIsh" />
-            <p className="greyIsh text-xl ml-2">Please search for jobs</p>
+            <BsSearch size={48} color="bg-gray-100" />
+            <p className="text-[#6f6f6f] text-xl ml-2">Please search for jobs</p>
           </div>
       )}
     </div>

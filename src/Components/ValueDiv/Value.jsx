@@ -7,7 +7,7 @@ import logo9 from "../../Assets/Dogecoin.png";
 const Value = () => {
   return (
     <div className="mb-[4rem] mt-[6rem]">
-      <h1 className="text-textColor text-[25px] py-[2rem] pb-[3rem] font-bold w-[400px] block">
+      <h1 className="text-textColor text-[25px] py-[2rem] pb-[3rem] pl-[2rem] font-bold w-[400px] block">
         The value that holds us true to the account
       </h1>
 
