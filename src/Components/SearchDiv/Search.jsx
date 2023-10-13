@@ -4,7 +4,7 @@ import { AiOutlineCloseCircle, AiOutlineSearch } from "react-icons/ai";
 import { BsHouseDoor } from "react-icons/bs";
 
 const Search = (params) => {
-  const { setSearchParams, setSearchPressed, searchPressed } = params;
+  const { setSearchParams, setSearchPressed, searchPressed, setJobs } = params;
   const [jobQuery, setJobQuery] = React.useState("");
   const [locationQuery, setLocationQuery] = React.useState("");
 
@@ -19,13 +19,13 @@ const Search = (params) => {
   };
 
   const handleClear = () => {
-      // Reset the search results and set searchPressed to false
-      setSearchPressed(false);
-//       setSearchParams();
-      setJobQuery("");
-      setLocationQuery("");
-      setJobs([]);
-    };
+    // Reset the search results and set searchPressed to false
+    setSearchPressed(false);
+    //       setSearchParams();
+    setJobQuery("");
+    setLocationQuery("");
+    setJobs([]);
+  };
 
   return (
     <div className="searchDiv px-[3rem] pt-[5rem] flex justify-center">
@@ -85,9 +85,14 @@ const Search = (params) => {
         </button>
 
         {/* Clear Button */}
-          {searchPressed && (
-                <button onClick={handleClear} className="bg-gray-400 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-[100px]">Clear</button>
-              )}
+        {searchPressed && (
+          <button
+            onClick={handleClear}
+            className="bg-gray-400 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-[100px]"
+          >
+            Clear
+          </button>
+        )}
       </form>
     </div>
   );

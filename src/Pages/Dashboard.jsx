@@ -93,10 +93,21 @@ const Dashboard = () => {
       setLoading(true);
 
       try {
-        const response = await axios.get("http://localhost:8000/jobs", {
-          params: searchParams,
-        });
-        setJobData(response.data);
+        if (Object.keys(searchParams).length) {
+          const token = localStorage.getItem("token");
+          console.log("token", token);
+          const config = {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            params: searchParams,
+          };
+          const response = await axios.get(
+            "http://localhost:8000/jobs",
+            config
+          );
+          setJobData(response.data);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -108,7 +119,12 @@ const Dashboard = () => {
   return (
     <div className="w-full m-auto bg-white">
       <NavBar />
-      <Search setSearchParams={setSearchParams} setSearchPressed={setSearchPressed} searchPressed={searchPressed} />
+      <Search
+        setSearchParams={setSearchParams}
+        setSearchPressed={setSearchPressed}
+        searchPressed={searchPressed}
+        setJobs={setJobData}
+      />
       <Jobs jobs={jobData} searched={searchPressed} />
       {searchPressed && jobData.length ? null : <Value />}
       <Footer />

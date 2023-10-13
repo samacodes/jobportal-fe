@@ -1,6 +1,7 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import AuthContext from "../../Context/AuthProvider";
+import { PropTypes } from "prop-types";
+import { useAuth } from "../../Context/useAuth";
 import { AiOutlineUser, AiOutlineDown, AiFillLock } from "react-icons/ai";
 
 const LoginButt = () => {
@@ -14,11 +15,12 @@ const LoginButt = () => {
   );
 };
 
-const LogoutButt = () => {
+const LogoutButt = (props) => {
+  const { auth, setAuth } = props;
   const logout = () => {
+    setAuth({});
     localStorage.removeItem("token");
   };
-  const { auth } = useContext(AuthContext);
   const [showDropdown, setShowDropdown] = useState(false);
 
   const toggleDropdown = () => {
@@ -33,12 +35,18 @@ const LogoutButt = () => {
         onClick={toggleDropdown}
       >
         <AiOutlineUser className="w-4 h-4 mr-1" />
-        {auth.user.username}
+        {auth?.user.username}
         <AiOutlineDown className="w-4 h-4 ml-1" />
       </button>
 
       {showDropdown && (
         <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-lg">
+          <a
+            href="/applied-jobs"
+            className="block px-4 py-2 text-sm text-[#6f6f6f] hover:bg-gray-100 hover:text-blueColor"
+          >
+            Applied Jobs
+          </a>
           <a
             href="/"
             className="block px-4 py-2 text-sm text-[#6f6f6f] hover:bg-gray-100 hover:text-blueColor"
@@ -52,7 +60,13 @@ const LogoutButt = () => {
   );
 };
 
+LogoutButt.propTypes = {
+  auth: PropTypes.object,
+  setAuth: PropTypes.func,
+};
+
 const NavBar = () => {
+  const { auth, setAuth } = useAuth();
   return (
     <>
       <div className="navBar flex justify-between items-center px-[3rem] pt-[2rem] pb-[1rem]">
@@ -65,7 +79,11 @@ const NavBar = () => {
         </div>
 
         <div className="menu text-[18px] flex gap-8">
-          {localStorage.getItem("token") ? <LogoutButt /> : <LoginButt />}
+          {localStorage.getItem("token") ? (
+            <LogoutButt auth={auth} setAuth={setAuth} />
+          ) : (
+            <LoginButt />
+          )}
         </div>
       </div>
       <hr className="border-[#e0e0e0]" />

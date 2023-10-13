@@ -3,13 +3,36 @@ import React from "react";
 import { BiTimeFive } from "react-icons/bi";
 import CustomModal from "./CustomModal";
 import { getTime } from "../../Helpers/GetTime";
+import api from "../../Helpers/AxiosHelper";
 
 const JobCard = (props) => {
   const { job } = props;
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const handleApplyNow = () => {
-    setIsModalOpen(true);
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "/login";
+      return;
+    }
+    const data = {
+      job_id: parseInt(job.id),
+    };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    api
+      .post("/jobs/apply", data, config)
+      .then((res) => {
+        console.log(res);
+        setIsModalOpen(true);
+        job.applied = true;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const closeModal = () => {
@@ -45,13 +68,22 @@ const JobCard = (props) => {
           </span>
         </div>
 
-        <button
-          className="border-[2px] rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-blue-400
+        {job.applied ? (
+          <button
+            className="border-[2px] rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled
+          >
+            Applied
+          </button>
+        ) : (
+          <button
+            className="border-[2px] rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-blue-400
                 group-hover/item:text-textColor group-hover:text-white"
-          onClick={handleApplyNow}
-        >
-          Apply Now
-        </button>
+            onClick={handleApplyNow}
+          >
+            Apply Now
+          </button>
+        )}
       </div>
 
       <CustomModal
