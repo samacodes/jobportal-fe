@@ -3,6 +3,7 @@ import Dashboard from "./Pages/Dashboard";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import ForgotPassword from "./Pages/ForgotPassword";
+import AppliedJobs from "./Pages/AppliedJobs";
 
 export const AppRouter = () => {
   const routes = [
@@ -21,6 +22,10 @@ export const AppRouter = () => {
     {
       path: "/forgot-password",
       element: <ForgotPassword />,
+    },
+    {
+      path: "/applied-jobs",
+      element: <AppliedJobs />,
     },
   ];
   return <RouterProvider router={createBrowserRouter(routes)} />;

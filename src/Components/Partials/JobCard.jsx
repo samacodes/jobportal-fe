@@ -62,7 +62,11 @@ const JobCard = (props) => {
         </p>
 
         <div className="company flex items-center gap-2">
-          <img src={job.image} alt={job.company} className="w-[20%]" />
+          <img
+            src={job.image}
+            alt={job.company}
+            className="w-[50px] h-[50px] object-cover rounded-full"
+          />
           <span className="text-[14px] py-[1rem] block group-hover:text-white">
             {job.company}
           </span>
