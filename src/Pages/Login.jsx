@@ -1,12 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../App.css";
-import AuthContext from "../Context/AuthProvider";
+import { useAuth } from "../Context/useAuth";
 import api from "../Helpers/AxiosHelper";
 
 const Login = () => {
-  const { setAuth } = useContext(AuthContext);
+  const { auth, setAuth } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
