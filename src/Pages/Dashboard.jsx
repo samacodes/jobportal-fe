@@ -96,12 +96,19 @@ const Dashboard = () => {
         if (Object.keys(searchParams).length) {
           const token = localStorage.getItem("token");
           console.log("token", token);
-          const config = {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            params: searchParams,
-          };
+          let config;
+          if (!token) {
+            config = {
+              params: searchParams,
+            };
+          } else {
+            config = {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              params: searchParams,
+            };
+          }
           const response = await axios.get(
             "http://localhost:8000/jobs",
             config
